@@ -9,7 +9,7 @@
       </h3>
       <div class="icons">
         <span class="material-icons">edit</span>
-        <span class="material-icons">delete</span>
+        <span class="material-icons" @click="deleteProject">delete</span>
         <span class="material-icons">done</span>
       </div>
     </div>
@@ -27,18 +27,24 @@ export default {
       required: false
     }
   },
-  setup() {
+  setup(props, { emit }) {
     const showDetails = ref(false)
+    const uri = ref('http://localhost:3000/projects/' + props.project.id)
 
     function showHideDetails() {
       showDetails.value = !showDetails.value
+    }
 
-      console.log(showDetails.value)
+    function deleteProject() {
+      fetch(uri.value, { method: 'DELETE' })
+        .then(() => emit('delete', props.project.id))
+        .catch(err => console.log(err.message))
     }
 
     return {
       showHideDetails,
-      showDetails
+      showDetails,
+      deleteProject
     }
   }
 }

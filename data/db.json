@@ -1,16 +1,16 @@
 {
   "projects": [
     {
-      "id": 1,
-      "title": "My awesome project",
-      "details": "It is my project",
+      "id": 3,
+      "title": "Addidas",
+      "details": "My new socks from this firm",
       "complete": false
     },
     {
-      "id": 2,
-      "title": "Nike website",
-      "details": "Design and templates",
-      "complete": true
+      "id": 4,
+      "title": "Addidas",
+      "details": "My new socks from this firm",
+      "complete": false
     }
   ]
 }

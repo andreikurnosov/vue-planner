@@ -2,7 +2,7 @@
   <div class="home">
     <div v-if="projects.length">
       <div v-for="project in projects" :key="project.id">
-        <project-item :project="project" />
+        <project-item :project="project" @delete="handleDelete" />
       </div>
     </div>
   </div>
@@ -18,12 +18,21 @@ export default {
   name: 'Home',
   setup() {
     const projects = ref([])
+
     fetch('http://localhost:3000/projects')
       .then(res => res.json())
       .then(data => (projects.value = data))
       .catch(err => console.log(err.message))
+
+    const handleDelete = id => {
+      projects.value = projects.value.filter(project => {
+        return project.id !== id
+      })
+    }
+
     return {
-      projects
+      projects,
+      handleDelete
     }
   }
 }
