@@ -15,10 +15,10 @@ body {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  min-width: 600px;
+  max-width: 600px;
   margin: 0 auto;
   color: #555;
-  font-size: 3.5rem;
+  font-size: 2rem;
   padding: 4rem;
   border-radius: 10px; 
 }
