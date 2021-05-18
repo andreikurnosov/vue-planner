@@ -2,7 +2,11 @@
   <div class="home">
     <div v-if="projects.length">
       <div v-for="project in projects" :key="project.id">
-        <project-item :project="project" @delete="handleDelete" />
+        <project-item
+          :project="project"
+          @delete="handleDelete"
+          @complete="handleComplete"
+        />
       </div>
     </div>
   </div>
@@ -24,15 +28,24 @@ export default {
       .then(data => (projects.value = data))
       .catch(err => console.log(err.message))
 
-    const handleDelete = id => {
+    function handleDelete(id) {
       projects.value = projects.value.filter(project => {
         return project.id !== id
       })
     }
 
+    function handleComplete(id) {
+      let p = projects.value.find(project => {
+        return project.id === id
+      })
+
+      p.complete = !p.complete
+    }
+
     return {
       projects,
-      handleDelete
+      handleDelete,
+      handleComplete
     }
   }
 }
