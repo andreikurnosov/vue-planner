@@ -1,5 +1,5 @@
 <template>
-  <form>
+  <form @submit.prevent="handleUpdate">
     <label for="title">Title:</label>
     <input v-model="title" id="title" type="text" required />
 
@@ -17,12 +17,14 @@
 
 <script>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 export default {
   props: ['id'],
   setup(props) {
     const title = ref('')
     const details = ref('')
     const uri = ref('http://localhost:3000/projects/' + props.id)
+    const router = useRouter()
 
     fetch(uri.value)
       .then(res => res.json())
@@ -31,9 +33,22 @@ export default {
         details.value = data.details
       })
 
+    function handleUpdate() {
+      fetch(uri.value, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title: title.value, details: details.value })
+      })
+        .then(() => {
+          router.push('/')
+        })
+        .catch(err => console.log(err.message))
+    }
+
     return {
       title,
-      details
+      details,
+      handleUpdate
     }
   }
 }
