@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <filter-nav @filterChange="current = $event" :current="current" />
     <div v-if="projects.length">
       <div v-for="project in projects" :key="project.id">
         <project-item
@@ -15,13 +16,15 @@
 <script>
 import { ref } from 'vue'
 import ProjectItem from '../components/ProjectItem.vue'
+import FilterNav from '../components/FilterNav.vue'
 
 export default {
-  components: { ProjectItem },
+  components: { ProjectItem, FilterNav },
 
   name: 'Home',
   setup() {
     const projects = ref([])
+    const current = ref('all')
 
     fetch('http://localhost:3000/projects')
       .then(res => res.json())
@@ -45,7 +48,8 @@ export default {
     return {
       projects,
       handleDelete,
-      handleComplete
+      handleComplete,
+      current
     }
   }
 }
