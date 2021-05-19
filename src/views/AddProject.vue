@@ -17,13 +17,30 @@
 
 <script>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 export default {
   setup() {
     const title = ref('')
     const details = ref('')
+    const router = useRouter()
 
     function handleSubmit() {
-      console.log(title.value, details.value)
+      let project = {
+        title: title.value,
+        details: details.value,
+        complete: false
+      }
+
+      fetch('http://localhost:3000/projects', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(project)
+      })
+        .then(() => {
+          router.push('/')
+        })
+        .catch(err => console.log(err.message))
+      console.log(project)
     }
 
     return {
@@ -40,6 +57,7 @@ form {
   background: white;
   padding: 2rem;
   border-radius: 10px;
+  box-shadow: 1px 1px 2px grey;
 }
 
 label {
@@ -58,18 +76,21 @@ input {
   border-radius: 7px;
   width: 100%;
   box-sizing: border-box;
+  outline: none;
 }
 
 textarea {
   border: 1px solid #ddd;
-  border-radius: 7px;;
+  border-radius: 7px;
   padding: 1rem;
   width: 100%;
   box-sizing: border-box;
   height: 10rem;
+  outline: none;
 }
 
 form button {
+  transition: all 200ms;
   display: block;
   margin: 20px auto 0;
   background: #00ce89;
@@ -78,5 +99,8 @@ form button {
   border: 0;
   border-radius: 6px;
   font-size: 1.6rem;
+}
+button:hover {
+  background: #00a56e;
 }
 </style>

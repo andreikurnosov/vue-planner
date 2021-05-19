@@ -1,6 +1,16 @@
 <template>
+  <navbar />
   <router-view />
 </template>
+
+<script>
+import Navbar from './components/Navbar.vue'
+export default {
+  components: {
+    Navbar
+  }
+}
+</script>
 
 <style>
 html {
@@ -20,6 +30,6 @@ body {
   color: #555;
   font-size: 2rem;
   padding: 4rem;
-  border-radius: 10px; 
+  border-radius: 10px;
 }
 </style>
