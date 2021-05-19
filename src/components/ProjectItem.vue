@@ -32,6 +32,7 @@ export default {
       required: false
     }
   },
+
   setup(props, { emit }) {
     const showDetails = ref(false)
     const uri = ref('http://localhost:3000/projects/' + props.project.id)
@@ -75,7 +76,7 @@ export default {
   padding: 10px 20px;
   border-radius: 4px;
   box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.05);
-  border-left: 4px solid #e90074;
+  border-left: 6px solid #e90074;
 }
 .details {
   opacity: 0.7;
@@ -107,6 +108,6 @@ h3 {
 }
 
 .project.complete {
-  border-left: 4px solid #00ce89;
+  border-left: 6px solid #00ce89;
 }
 </style>
